@@ -1,39 +1,37 @@
-name: Selenium Test Workflow
+name: Test Selenium con GitHub Actions
 
 on:
   push:
     branches:
-      - main   # Cambia esto si tu rama principal tiene otro nombre
-  pull_request:
-    branches:
-      - main   # Cambia esto si tu rama principal tiene otro nombre
+      - main
 
 jobs:
-  selenium-test:
-    runs-on: ubuntu-latest  # Usamos Ubuntu porque Chrome y Selenium funcionan bien allí
-    
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      selenium:
+        image: selenium/standalone-chrome:latest
+        options: --shm-size=2g
+
     steps:
-    - name: Check out repository
-      uses: actions/checkout@v3  # Esto descarga el código del repositorio en la máquina de CI
+      - name: Check out repository
+        uses: actions/checkout@v2
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '16'   # Usamos Node.js 16, puedes ajustar a la versión que prefieras
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
 
-    - name: Install dependencies
-      run: |
-        npm install  # Esto instalará Selenium y cualquier otra dependencia de tu proyecto
+      - name: Install dependencies
+        run: npm install
 
-    - name: Set up Google Chrome
-      uses: googlechrome/setup-chrome@v2  # Usamos esta acción para configurar Chrome
-      with:
-        chrome-version: '131.0.6778.86'  # Usa la versión de Chrome que estás utilizando
+      - name: Install ChromeDriver version compatible with Chrome 131
+        run: |
+          VERSION=$(curl -sSL https://chromedriver.storage.googleapis.com/LATEST_RELEASE_131)  # Obtén la última versión compatible con Chrome 131
+          curl -O https://chromedriver.storage.googleapis.com/$VERSION/chromedriver_linux64.zip
+          unzip chromedriver_linux64.zip
+          sudo mv chromedriver /usr/local/bin/
 
-    - name: Install ChromeDriver
-      run: |
-        npm install chromedriver --save-dev  # Instala ChromeDriver en el entorno de CI
-
-    - name: Run Selenium tests
-      run: |
-        node test.js  # Ejecuta el script de pruebas (el que creaste previamente)
+      - name: Run tests with Selenium
+        run: npm test
