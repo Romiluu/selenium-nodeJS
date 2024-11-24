@@ -26,7 +26,7 @@ jobs:
         npm install  # Esto instalará Selenium y cualquier otra dependencia de tu proyecto
 
     - name: Set up Google Chrome
-      uses: microsoft/setup-chrome@v2  # Esta es la acción correcta para configurar Chrome
+      uses: googlechrome/setup-chrome@v2  # Usamos esta acción para configurar Chrome
       with:
         chrome-version: '131.0.6778.86'  # Usa la versión de Chrome que estás utilizando
 
