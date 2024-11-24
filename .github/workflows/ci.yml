@@ -26,5 +26,17 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Check Chrome version
+        run: google-chrome --version
+      
+
+      - name: Install ChromeDriver (version compatible con Chrome 131)
+        run: |
+          # Instalar ChromeDriver manualmente
+          VERSION=$(curl -sSL https://chromedriver.storage.googleapis.com/LATEST_RELEASE_131)  # Obtén la última versión compatible con Chrome 131
+          curl -O https://chromedriver.storage.googleapis.com/$VERSION/chromedriver_linux64.zip
+          unzip chromedriver_linux64.zip
+          sudo mv chromedriver /usr/local/bin/
+
       - name: Run tests with Selenium
         run: npm test
