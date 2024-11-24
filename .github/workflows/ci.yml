@@ -35,7 +35,7 @@ jobs:
       - name: Install ChromeDriver (version compatible con Chrome 131)
         run: |
           # Descargar ChromeDriver
-          curl -sSL https://chromedriver.storage.googleapis.com/131.0.6778.24/chromedriver_linux64.zip -o chromedriver.zip
+          curl -sSL https://storage.googleapis.com/chrome-for-testing-public/131.0.6778.85/win64/chromedriver-win64.zip -o chromedriver.zip
           
           # Verificar que el archivo se haya descargado correctamente
           ls -l chromedriver.zip
