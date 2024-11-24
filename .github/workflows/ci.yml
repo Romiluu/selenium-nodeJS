@@ -36,6 +36,11 @@ jobs:
       - name: Verify ChromeDriver installation
         run: chromedriver --version
 
+      - name: Kill processes on ports 8080 and 8081
+        run: |
+          sudo fuser -k 8080/tcp || true
+          sudo fuser -k 8081/tcp || true
+          
       - name: Install http-server
         run: npm install -g http-server
 
