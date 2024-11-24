@@ -3,10 +3,10 @@ name: Selenium Test Workflow
 on:
   push:
     branches:
-      - main   
+      - main   # Cambia esto si tu rama principal tiene otro nombre
   pull_request:
     branches:
-      - main   
+      - main   # Cambia esto si tu rama principal tiene otro nombre
 
 jobs:
   selenium-test:
@@ -25,8 +25,8 @@ jobs:
       run: |
         npm install  # Esto instalará Selenium y cualquier otra dependencia de tu proyecto
 
-    - name: Set up Chrome
-      uses: browser-actions/setup-chrome@v2  # Esto instala Chrome para ejecutar las pruebas
+    - name: Set up Google Chrome
+      uses: microsoft/setup-chrome@v2  # Esta es la acción correcta para configurar Chrome
       with:
         chrome-version: '131.0.6778.86'  # Usa la versión de Chrome que estás utilizando
 
