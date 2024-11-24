@@ -23,6 +23,9 @@ jobs:
         with:
           node-version: '16'
 
+      - name: Listar archivos del directorio actual
+        run: ls -la
+        
       - name: Install dependencies
         run: npm install
 
