@@ -28,14 +28,25 @@ jobs:
 
       - name: Check Chrome version
         run: google-chrome --version
-      
+
       - name: Verify ChromeDriver installation
         run: chromedriver --version
 
       - name: Install ChromeDriver (version compatible con Chrome 131)
         run: |
-          # Descargar y descomprimir ChromeDriver
+          # Descargar ChromeDriver
           curl -sSL https://chromedriver.storage.googleapis.com/131.0.6778.24/chromedriver_linux64.zip -o chromedriver.zip
+          
+          # Verificar que el archivo se haya descargado correctamente
+          ls -l chromedriver.zip
+
+          # Comprobar si el archivo es un archivo zip válido
+          if ! unzip -t chromedriver.zip; then
+            echo "Error: El archivo no es un zip válido"
+            exit 1
+          fi
+
+          # Descomprimir el archivo
           unzip chromedriver.zip
           sudo mv chromedriver /usr/local/bin/
 
