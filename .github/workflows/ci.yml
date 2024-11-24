@@ -29,12 +29,15 @@ jobs:
       - name: Check Chrome version
         run: google-chrome --version
 
-      - name: Install ChromeDriver
+      - name: Install ChromeDriver (version compatible con Chrome 131)
         run: |
+          # Descargar y descomprimir ChromeDriver
           curl -sSL https://storage.googleapis.com/chrome-for-testing-public/131.0.6778.85/linux64/chromedriver-linux64.zip -o chromedriver.zip
-          unzip chromedriver.zip -d chromedriver-linux64/
-          sudo mv chromedriver-linux64/chromedriver /usr/local/bin/
+          unzip chromedriver.zip
+          # Mover el ejecutable a /usr/local/bin
+          sudo mv chromedriver-linux64/chromedriver-linux64/chromedriver /usr/local/bin/
           sudo chmod +x /usr/local/bin/chromedriver
+      
      
       - name: Verify ChromeDriver installation
         run: chromedriver --version
