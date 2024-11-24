@@ -1,5 +1,5 @@
 const { Builder, By } = require('selenium-webdriver');
-const path = require('path');
+require('chromedriver'); // Asegúrate de que el módulo 'chromedriver' esté instalado
 
 (async function pruebaHTML() {
     let driver = await new Builder().forBrowser('chrome').build();
