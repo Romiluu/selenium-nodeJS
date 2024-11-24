@@ -34,7 +34,8 @@ jobs:
           # Descargar y descomprimir ChromeDriver
           curl -sSL https://storage.googleapis.com/chrome-for-testing-public/131.0.6778.85/linux64/chromedriver-linux64.zip -o chromedriver.zip
           unzip chromedriver.zip
-          sudo mv chromedriver /usr/local/bin/
+          # Mover el archivo chromedriver desde la subcarpeta
+          sudo mv chromedriver-linux64/chromedriver /usr/local/bin/
 
       - name: Run tests with Selenium
         run: npm test
