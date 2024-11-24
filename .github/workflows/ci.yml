@@ -41,7 +41,7 @@ jobs:
 
       - name: Start HTTP server
         run: |
-          http-server . -p 8080 &
+          http-server . -p 8081 &
           sleep 5
 
       - name: Run tests with Selenium
