@@ -1,27 +1,18 @@
 const { Builder, By } = require('selenium-webdriver');
 
 (async function pruebaHTML() {
-  let driver = await new Builder().forBrowser('chrome').build();
-  try {
-    // Conecta al servidor iniciado en el workflow
-    const filePath = `http://localhost:8080/index.html`;
-    await driver.get(filePath);
+    let driver = await new Builder().forBrowser('chrome').build();
+    try {
+        // Apuntar al servidor iniciado en el workflow
+        const filePath = `http://localhost:8080/index.html`;
+        await driver.get(filePath);
 
-    // Verificar elementos
-    let titulo = await driver.findElement(By.id('titulo')).getText();
-    if (titulo === '¡Bienvenido a la prueba!') {
-      console.log('✅ El título es correcto');
-    } else {
-      console.log('❌ El título es incorrecto');
-    }
+        const titulo = await driver.findElement(By.id('titulo')).getText();
+        console.log(titulo === '¡Bienvenido a la prueba!' ? '✅ Título correcto' : '❌ Título incorrecto');
 
-    let boton = await driver.findElement(By.id('boton'));
-    if (boton) {
-      console.log('✅ El botón existe');
-    } else {
-      console.log('❌ El botón no existe');
+        const boton = await driver.findElement(By.id('boton'));
+        console.log(boton ? '✅ Botón encontrado' : '❌ Botón no encontrado');
+    } finally {
+        await driver.quit();
     }
-  } finally {
-    await driver.quit();
-  }
 })();
