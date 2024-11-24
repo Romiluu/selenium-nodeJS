@@ -7,7 +7,7 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest  # Mantén el entorno de Ubuntu
 
     services:
       selenium:
@@ -29,24 +29,10 @@ jobs:
       - name: Check Chrome version
         run: google-chrome --version
 
-      - name: Verify ChromeDriver installation
-        run: chromedriver --version
-
       - name: Install ChromeDriver (version compatible con Chrome 131)
         run: |
-          # Descargar ChromeDriver
-          curl -sSL https://storage.googleapis.com/chrome-for-testing-public/131.0.6778.85/win64/chromedriver-win64.zip -o chromedriver.zip
-          
-          # Verificar que el archivo se haya descargado correctamente
-          ls -l chromedriver.zip
-
-          # Comprobar si el archivo es un archivo zip válido
-          if ! unzip -t chromedriver.zip; then
-            echo "Error: El archivo no es un zip válido"
-            exit 1
-          fi
-
-          # Descomprimir el archivo
+          # Descargar y descomprimir ChromeDriver
+          curl -sSL https://storage.googleapis.com/chrome-for-testing-public/131.0.6778.85/linux64/chromedriver-linux64.zip -o chromedriver.zip
           unzip chromedriver.zip
           sudo mv chromedriver /usr/local/bin/
 
