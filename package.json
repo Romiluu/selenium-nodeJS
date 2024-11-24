@@ -10,5 +10,8 @@
     "chromedriver": "^116.0.0",
     "path": "^0.12.7",
     "selenium-webdriver": "^4.26.0"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
   }
 }

@@ -7,7 +7,7 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest  # Mantén el entorno de Ubuntu
+    runs-on: ubuntu-latest
 
     services:
       selenium:
@@ -23,27 +23,26 @@ jobs:
         with:
           node-version: '16'
 
-      - name: Listar archivos del directorio actual
-        run: ls -la
-        
       - name: Install dependencies
         run: npm install
 
-      - name: Check Chrome version
-        run: google-chrome --version
-
       - name: Install ChromeDriver (version compatible con Chrome 131)
         run: |
-          # Descargar y descomprimir ChromeDriver
           curl -sSL https://storage.googleapis.com/chrome-for-testing-public/131.0.6778.85/linux64/chromedriver-linux64.zip -o chromedriver.zip
           unzip chromedriver.zip
-          # Mover el ejecutable al directorio global
           sudo mv chromedriver-linux64/chromedriver /usr/local/bin/
           sudo chmod +x /usr/local/bin/chromedriver
-      
-     
+
       - name: Verify ChromeDriver installation
         run: chromedriver --version
+
+      - name: Install http-server
+        run: npm install -g http-server
+
+      - name: Start HTTP server
+        run: |
+          http-server . -p 8080 &
+          sleep 5
 
       - name: Run tests with Selenium
         run: npm test
